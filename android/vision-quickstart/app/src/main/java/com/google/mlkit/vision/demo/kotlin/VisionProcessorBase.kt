@@ -222,7 +222,9 @@ abstract class VisionProcessorBase<T>(context: Context) : VisionImageProcessor {
                         )
                 )
             }
-            this@VisionProcessorBase.onSuccess(results, graphicOverlay)
+            if (image.bitmapInternal != null) {
+                this@VisionProcessorBase.onSuccess(results, graphicOverlay, image.bitmapInternal!!)
+            }
             graphicOverlay.add(
                     InferenceInfoGraphic(
                             graphicOverlay,
@@ -259,7 +261,7 @@ abstract class VisionProcessorBase<T>(context: Context) : VisionImageProcessor {
 
     protected abstract fun detectInImage(image: InputImage): Task<T>
 
-    protected abstract fun onSuccess(results: T, graphicOverlay: GraphicOverlay)
+    protected abstract fun onSuccess(results: T, graphicOverlay: GraphicOverlay, bitmap: Bitmap)
 
     protected abstract fun onFailure(e: Exception)
 }

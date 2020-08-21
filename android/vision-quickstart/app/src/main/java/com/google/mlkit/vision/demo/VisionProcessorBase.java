@@ -43,7 +43,7 @@ import java.util.TimerTask;
 
 /**
  * Abstract base class for vision frame processors. Subclasses need to implement {@link
- * #onSuccess(Object, GraphicOverlay)} to define what they want to with the detection results and
+ * #onSuccess(Object, GraphicOverlay, Bitmap)} to define what they want to with the detection results and
  * {@link #detectInImage(InputImage)} to specify the detector object.
  *
  * @param <T> The type of the detected feature.
@@ -208,8 +208,12 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
                             graphicOverlay.clear();
                             if (originalCameraImage != null) {
                                 graphicOverlay.add(new CameraImageGraphic(graphicOverlay, originalCameraImage));
+                                VisionProcessorBase.this.onSuccess(results, graphicOverlay, originalCameraImage);
+                            }else{
+                                VisionProcessorBase.this.onSuccess(results, graphicOverlay, image.getBitmapInternal());
                             }
-                            VisionProcessorBase.this.onSuccess(results, graphicOverlay);
+
+
                             graphicOverlay.add(
                                     new InferenceInfoGraphic(
                                             graphicOverlay, currentLatencyMs, shouldShowFps ? framesPerSecond : null));
@@ -243,7 +247,7 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
 
     protected abstract Task<T> detectInImage(InputImage image);
 
-    protected abstract void onSuccess(@NonNull T results, @NonNull GraphicOverlay graphicOverlay);
+    protected abstract void onSuccess(@NonNull T results, @NonNull GraphicOverlay graphicOverlay, @NonNull Bitmap bitmap);
 
     protected abstract void onFailure(@NonNull Exception e);
 }

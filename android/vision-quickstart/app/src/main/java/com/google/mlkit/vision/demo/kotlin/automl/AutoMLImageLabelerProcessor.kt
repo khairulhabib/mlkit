@@ -17,6 +17,7 @@
 package com.google.mlkit.vision.demo.kotlin.automl
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
@@ -62,7 +63,7 @@ class AutoMLImageLabelerProcessor(context: Context) :
         return imageLabeler.process(image)
     }
 
-    override fun onSuccess(results: List<ImageLabel>, graphicOverlay: GraphicOverlay) {
+    override fun onSuccess(results: List<ImageLabel>, graphicOverlay: GraphicOverlay, bitmap: Bitmap) {
         graphicOverlay.add(LabelGraphic(graphicOverlay, results))
     }
 

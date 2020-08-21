@@ -17,6 +17,7 @@
 package com.google.mlkit.vision.demo.kotlin.labeldetector
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
@@ -51,7 +52,7 @@ class LabelDetectorProcessor(context: Context, options: ImageLabelerOptionsBase)
         return imageLabeler.process(image)
     }
 
-    override fun onSuccess(labels: List<ImageLabel>, graphicOverlay: GraphicOverlay) {
+    override fun onSuccess(labels: List<ImageLabel>, graphicOverlay: GraphicOverlay, bitmap: Bitmap) {
         graphicOverlay.add(LabelGraphic(graphicOverlay, labels))
         logExtrasForTesting(labels)
     }

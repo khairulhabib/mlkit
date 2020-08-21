@@ -17,6 +17,7 @@
 package com.google.mlkit.vision.demo.kotlin.textdetector
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
@@ -39,7 +40,7 @@ class TextRecognitionProcessor(context: Context) : VisionProcessorBase<Text>(con
         return textRecognizer.process(image)
     }
 
-    override fun onSuccess(text: Text, graphicOverlay: GraphicOverlay) {
+    override fun onSuccess(text: Text, graphicOverlay: GraphicOverlay, bitmap: Bitmap) {
         Log.d(TAG, "On-device Text detection successful")
         logExtrasForTesting(text)
         graphicOverlay.add(TextGraphic(graphicOverlay, text))

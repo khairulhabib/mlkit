@@ -17,6 +17,7 @@
 package com.google.mlkit.vision.demo.kotlin.objectdetector
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
@@ -51,7 +52,7 @@ class ObjectDetectorProcessor(context: Context, options: ObjectDetectorOptionsBa
         return detector.process(image)
     }
 
-    override fun onSuccess(results: List<DetectedObject>, graphicOverlay: GraphicOverlay) {
+    override fun onSuccess(results: List<DetectedObject>, graphicOverlay: GraphicOverlay, bitmap: Bitmap) {
         for (result in results) {
             graphicOverlay.add(ObjectGraphic(graphicOverlay, result))
         }

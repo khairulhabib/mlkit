@@ -17,6 +17,7 @@
 package com.google.mlkit.vision.demo.kotlin.barcodescanner
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.barcode.Barcode
@@ -45,7 +46,7 @@ class BarcodeScannerProcessor(context: Context) : VisionProcessorBase<List<Barco
         return barcodeScanner.process(image)
     }
 
-    override fun onSuccess(barcodes: List<Barcode>, graphicOverlay: GraphicOverlay) {
+    override fun onSuccess(barcodes: List<Barcode>, graphicOverlay: GraphicOverlay, bitmap: Bitmap) {
         if (barcodes.isEmpty()) {
             Log.v(MANUAL_TESTING_LOG, "No barcode has been detected")
         }

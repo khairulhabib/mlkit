@@ -17,6 +17,7 @@
 package com.google.mlkit.vision.demo.kotlin.facedetector
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
@@ -34,6 +35,8 @@ class FaceDetectorProcessor(context: Context, detectorOptions: FaceDetectorOptio
   VisionProcessorBase<List<Face>>(context) {
 
   private val detector: FaceDetector
+
+//  private val model = FaceNetModel(context)
 
   init {
     val options = detectorOptions
@@ -56,8 +59,11 @@ class FaceDetectorProcessor(context: Context, detectorOptions: FaceDetectorOptio
     return detector.process(image)
   }
 
-  override fun onSuccess(faces: List<Face>, graphicOverlay: GraphicOverlay) {
+  override fun onSuccess(faces: List<Face>, graphicOverlay: GraphicOverlay, bitmap: Bitmap) {
     for (face in faces) {
+      // add face embedding from facenet model
+//      var faceEmbed = model.getFaceEmbedding(bitmap,face.boundingBox,false)
+//      println("face embed = $faceEmbed")
       graphicOverlay.add(FaceGraphic(graphicOverlay, face))
       logExtrasForTesting(face)
     }
